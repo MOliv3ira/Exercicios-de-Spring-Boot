@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 @Entity //Estou conectando a minha Model com a minha tabela e seguindo a estrutura de dados
@@ -23,7 +25,12 @@ public class Turma {
 	
 	@NotNull
 	private boolean ativo;
-
+	
+	@ManyToOne
+	@JsonIgnoreProperties("turma")
+	private Aluno aluno;
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -48,5 +55,13 @@ public class Turma {
 		this.ativo = ativo;
 	}
 	
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
 	
 }
