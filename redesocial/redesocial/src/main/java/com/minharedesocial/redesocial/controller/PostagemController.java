@@ -19,7 +19,7 @@ import com.minharedesocial.redesocial.model.Postagem;
 import com.minharedesocial.redesocial.repository.PostagemRepository;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*") //(allowedHeaders)Para puxar as outras tabelas que estão ligadas na tabela postagem
 @RequestMapping("/postagem")
 public class PostagemController {
 	

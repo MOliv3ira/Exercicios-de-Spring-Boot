@@ -1,6 +1,7 @@
 package com.minharedesocial.redesocial.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,22 +16,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.minharedesocial.redesocial.model.UserLogin;
 import com.minharedesocial.redesocial.model.Usuario;
 import com.minharedesocial.redesocial.repository.UsuarioRepository;
+import com.minharedesocial.redesocial.service.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 	
 	@Autowired
 	public UsuarioRepository repository;
 	
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	@GetMapping 	//Estou me referinndo a um metodo Get para vir uma lista de usuario
 	public ResponseEntity<List<Usuario>> GetAll(){
 		
 		return ResponseEntity.ok(repository.findAll()); 					//Chamando o Metodo FindAll para trazer(retornar) uma LISTA de Dados
+	}
+	
+	
+	@PostMapping("/logar")
+	public ResponseEntity<UserLogin> Autentication(@RequestBody Optional<UserLogin> user) {
+		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
+	
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(usuarioService.CadastrarUsuario(usuario));
 	}
 	
 	
@@ -41,7 +60,6 @@ public class UsuarioController {
 				.map(resp -> ResponseEntity.ok(resp)) 
 				.orElse(ResponseEntity.notFound().build()); 				// Metodo Map retorma uma valor do tipo usuario e caso exista ele retorna um objeto do tipo 200 OK e caso não exista ele retorna um badResquest 404
 	}
-	
 	
 	
 	
