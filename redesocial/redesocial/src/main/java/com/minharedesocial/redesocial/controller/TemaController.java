@@ -70,5 +70,4 @@ public class TemaController {
 		public void Delete (@PathVariable long id) {							//@PathVariable infoma que o valor virá da URL como paramentro
 			repository.deleteById(id);											//O metodo deverá ser void, ou seja não retorna nada
 		}
-	
 }

@@ -47,6 +47,8 @@ public class PostagemController {
 	
 	
 	
+	
+	
 	@PostMapping 															//Metodo Post, iremos postar (inserir) as informações em nosso banco de dados
 	public ResponseEntity<Postagem> post(@RequestBody Postagem postagem){  			//@RequestBody -> Informa que o objeto postagem virá via Body (Corpo da requisição)
 		
@@ -57,11 +59,13 @@ public class PostagemController {
 	
 	
 	
+	
 	@PutMapping																//Metodo que fará a Atualização nos dados que ja existem na nossa base
 	public ResponseEntity<Postagem> Put(@RequestBody Postagem postagem){				//@RequestBody -> Informa que o objeto postagem virá via Body (Corpo da requisição)
 		return ResponseEntity.status(HttpStatus.OK) 						//ResponseEntity.status(HttpStatus.OK) retorna o status 200 OK para o cliente
 				.body(repository.save(postagem)); 								//.body(repository.save(turma)) retorna na body -- Corpo o objeto Atualizado
 	}																		//Lembrando que quando o objeto vem com o ID estamos fazendo uma atualização.
+	
 	
 	
 	
