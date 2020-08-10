@@ -19,45 +19,36 @@ import br.com.farmacia10.farmacia.model.Produto;
 import br.com.farmacia10.farmacia.repository.ProdutoRepository;
 
 
-
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/produtos")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/produto")
 public class ProdutoController {
 
-	
 	@Autowired
-	private ProdutoRepository repository;
-	
-	@GetMapping
-	public ResponseEntity<List<Produto>> GetAll(){
-		return ResponseEntity.ok(repository.findAll());
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Produto> GetById(@PathVariable long id){
-		return repository.findById(id)
-				.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
-	}
-	
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Produto>> GetByDescricao(@PathVariable String nome){
-		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
-	}
-	
-	@PostMapping
-	public ResponseEntity<Produto> post (@RequestBody Produto produtos){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produtos));
-	}
-	
-	@PutMapping
-	public ResponseEntity<Produto> put (@RequestBody Produto produtos){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(produtos));
-	}
-	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
-	}
+    private ProdutoRepository produtoRepository;
+
+    @GetMapping
+    public ResponseEntity<List<Produto>> getAll(){
+        return ResponseEntity.ok(produtoRepository.findAll());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> getById(@PathVariable long id){
+        return produtoRepository.findById(id)
+                .map(resp->ResponseEntity.ok(resp))
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @PostMapping
+    public ResponseEntity<Produto> post(@RequestBody Produto produto){
+        return ResponseEntity.status(HttpStatus.CREATED)
+        		.body(produtoRepository.save(produto));
+    }
+    @PutMapping
+    public ResponseEntity<Produto> put(@RequestBody Produto produto){
+        return ResponseEntity.status(HttpStatus.OK)
+        		.body(produtoRepository.save(produto));
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id){
+        produtoRepository.deleteById(id);
+    }
 }

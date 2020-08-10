@@ -19,42 +19,36 @@ import br.com.farmacia10.farmacia.model.Categoria;
 import br.com.farmacia10.farmacia.repository.CategoriaRepository;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/categorias")
+@CrossOrigin("*")
+@RequestMapping("/categoria")
 public class CategoriaController {
 	
 	@Autowired
-	private CategoriaRepository repository;
-	
-	@GetMapping
-	public ResponseEntity<List<Categoria>> GetAll(){
-		return ResponseEntity.ok(repository.findAll());
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> GetById(@PathVariable long id){
-		
-		return repository.findById(id)
-				.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
-	}
-	
-	@PostMapping
-	public ResponseEntity<Categoria> Post(@RequestBody Categoria categoria){
-		
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(repository.save(categoria));
-	}
-	
-	@PutMapping
-	public ResponseEntity<Categoria> Put(@RequestBody Categoria categoria){
-		
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(repository.save(categoria));
-	}
-	
-	@DeleteMapping("/{id}")
-	public void Delete(@PathVariable long id) {
-		repository.deleteById(id);
-	}
+    private CategoriaRepository categoriaRepository;
+
+    @GetMapping
+    public ResponseEntity<List<Categoria>> getAll(){
+        return ResponseEntity.ok(categoriaRepository.findAll());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Categoria> getById(@PathVariable long id){
+       
+    	return categoriaRepository.findById(id)
+                .map(resp->ResponseEntity.ok(resp))
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @PostMapping
+    public ResponseEntity<Categoria> post(@RequestBody Categoria categoria){
+        return ResponseEntity.status(HttpStatus.CREATED)
+        		.body(categoriaRepository.save(categoria));
+    }
+    @PutMapping
+    public ResponseEntity<Categoria> put(@RequestBody Categoria categoria){
+        return ResponseEntity.status(HttpStatus.OK)
+        		.body(categoriaRepository.save(categoria));
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id){
+        categoriaRepository.deleteById(id);
+    }
 }
