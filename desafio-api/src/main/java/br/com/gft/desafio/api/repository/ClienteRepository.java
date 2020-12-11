@@ -10,4 +10,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
 	public List<Cliente> findAllByNomeContainingIgnoreCase(String nome);
 
+	public List<Cliente> findAllByOrderByNomeAsc();
+	
+	public List<Cliente> findAllByOrderByNomeDesc();
 }

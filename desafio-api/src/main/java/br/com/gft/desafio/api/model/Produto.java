@@ -13,39 +13,63 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Produto", description = "Representa um Produto")
 @Entity
 @Table(name = "produto")
 public class Produto {
-
+	
+	@ApiModelProperty(example = "1")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; //
-
+	
+	@ApiModelProperty(example = "Computador")
+	@NotNull
+	@Size(min = 3, max = 50)
 	private String nome;
-
+	
+	@ApiModelProperty(example = "XX002233")
 	@Column(name = "codigo_produto")
 	private String codigoProduto;
-
+	
+	@ApiModelProperty(example = "6500.00")
+	@NotNull
 	private BigDecimal valor;
-
+	
+	@ApiModelProperty(example = "1")
+	@NotNull
 	private boolean promocao;
-
+	
+	@ApiModelProperty(example = "500.00")
 	@Column(name = "valor_promo")
 	private BigDecimal valorPromo;
-
+	
+	@ApiModelProperty(example = "Informática")
+	@NotNull
 	private String categoria;
-
+	
+	@ApiModelProperty(example = "produto.jpg")
+	@NotNull
 	private String imagem;
-
+	
+	@ApiModelProperty(example = "50")
+	@NotNull
 	private Long quantidade;
-
+	
+	@ApiModelProperty(example = "4")
 	@ManyToOne
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 	
+	@ApiModelProperty(example = "6")
 	@ManyToMany(mappedBy = "produtos", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Venda> venda;

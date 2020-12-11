@@ -10,21 +10,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Fornecedor", description = "Representa um fornecedor")
 @Entity
 @Table(name = "fornecedor")
 public class Fornecedor {
-
+	
+	@ApiModelProperty(example = "1")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; //
-
+	
+	@ApiModelProperty(example = "Maria Alamino")
+	@NotNull
+	@Size(min = 3, max = 50)
 	private String nome;
-
+	
+	@ApiModelProperty(example = "XXX.XXX.XXXX/XX")
+	@NotNull
 	private String cnpj;
-
+	
+	@ApiModelProperty(example = "3")
 	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Produto> produtos = new ArrayList<>();

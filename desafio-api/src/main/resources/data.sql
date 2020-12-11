@@ -17,9 +17,10 @@ INSERT INTO cliente(nome, email, senha, documento, data_cadastro)
 values('Ricardo Pereira','ricardo.pereira@gft.com','admin','555.444.333-66','2017-07-05');
 
 
-insert into fornecedor (nome, cnpj) values ('Podcat', '9728910657');
-insert into fornecedor (nome, cnpj) values ('Google', 'ZZZ202020');
-insert into fornecedor (nome, cnpj) values ('Dell', '0000XXXX');
+insert into fornecedor (nome, cnpj) values ('Podcat', '972.891.0657/XX');
+insert into fornecedor (nome, cnpj) values ('Google', 'ZZZ.202.0202/ZZ');
+insert into fornecedor (nome, cnpj) values ('Dell', '000.0XX.XX33/98');
+insert into fornecedor (nome, cnpj) values ('Amazon', '111.1XX.XX45/0X');
 
 insert into produto (nome, codigo_produto, valor, promocao, valor_promo, categoria, imagem, quantidade, fornecedor_id) 
 values ('Celery Root', '0078-0382', 6.13, false, 78.72, 'Tools', 'produto.jpg', 51, 1);

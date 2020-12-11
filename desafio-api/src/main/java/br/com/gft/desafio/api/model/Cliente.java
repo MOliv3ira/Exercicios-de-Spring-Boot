@@ -10,30 +10,47 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Cliente", description = "Representa um cliente")
 @Entity
 @Table(name = "cliente")
 public class Cliente {
-
+	
+	@ApiModelProperty(example = "1")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; //
-
+	
+	@ApiModelProperty(example = "João Silva")
+	@NotNull
+	@Size(min = 3, max = 50)
 	private String nome;
-
+	
+	@ApiModelProperty(example = "joao.silva@gft.com")
+	@NotNull
 	private String email;
-
+	
+	@ApiModelProperty(example = "adimin")
+	@NotNull
 	private String senha;
-
+	
+	@ApiModelProperty(example = "XXX.XXX.XXX-XX")
+	@NotNull
 	private String documento;
-
+	
+	@ApiModelProperty(example = "2021-01-30")
 	@Column(name = "data_cadastro")
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro = new java.sql.Date(System.currentTimeMillis());
 
 //	private Date dataCadastro = new java.util.Date();
 	
-	
+
 
 	public Long getId() {
 		return id;
@@ -82,6 +99,7 @@ public class Cliente {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+	
 
 	@Override
 	public int hashCode() {

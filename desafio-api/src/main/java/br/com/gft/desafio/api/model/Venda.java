@@ -15,33 +15,45 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Venda", description = "Representa uma venda")
 @Entity
 @Table(name = "venda")
 public class Venda {
-
+	
+	@ApiModelProperty(example = "1")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; //
-
+	
+	@ApiModelProperty(example = "3500.00")
 	@Column(name = "total_compra")
 	private BigDecimal totalCompra;
-
+	
+	@ApiModelProperty(example = "2020-12-11")
+	@NotNull
 	@Column(name = "data_compra")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCompra;
-
+	
+	@ApiModelProperty(example = "4")
 	@ManyToOne
 	@JsonIgnoreProperties("venda")
 	private Cliente cliente;
-
+	
+	@ApiModelProperty(example = "3")
 	@ManyToOne
 	@JsonIgnoreProperties("venda")
 	private Fornecedor fornecedor;
 	
+	@ApiModelProperty(example = "2")
 	@ManyToMany
 	@JoinTable(name = "produto_venda",
 	joinColumns = @JoinColumn(name = "produto_id"),
